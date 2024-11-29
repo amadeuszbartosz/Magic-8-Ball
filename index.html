@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Magic 8 Ball</title>
+  <!-- Viewport meta tag for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     /* Reset default styles */
     * {
@@ -28,20 +29,30 @@
     .container {
       text-align: center;
       width: 100%;
-      max-width: 800px; /* Increased max-width for desktop */
+      max-width: 800px;
+    }
+
+    /* ASCII Art Title styling */
+    #title {
+      font-size: 0.4rem; /* Reduced font size */
+      line-height: 1.2;
+      white-space: pre;
+      margin-bottom: 10px;
+      display: inline-block; /* Centering the title */
     }
 
     /* ASCII art styling */
     #magic8ball {
-      font-size: 1rem; /* Base font size */
+      /* Changed display to block */
+      display: block;
+      font-size: 1rem;
       line-height: 1.2;
       white-space: pre;
-      overflow-x: auto; /* Enable horizontal scrolling if needed */
+      overflow-x: auto;
       margin-bottom: 20px;
       min-height: 20em;
       text-align: center;
-      position: relative;
-      margin: 0 auto;
+      margin: 0 auto; /* Center the block element */
     }
 
     /* Blinking cursor */
@@ -65,6 +76,10 @@
       font-family: 'Courier New', Courier, monospace;
       transition: background-color 0.3s;
       margin-top: 20px;
+      /* Center the button */
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     button:hover {
@@ -73,78 +88,28 @@
 
     /* Fortune text styling */
     #fortune {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 1.2rem;
       font-weight: bold;
       max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
       opacity: 0;
       transition: opacity 1s;
       text-align: center;
-    }    
+    }
 
-    /* Shake animation */
-    @keyframes shake {
+    /* Wiggle animation */
+    @keyframes wiggle {
       0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-5px); }
-      40%, 80% { transform: translateX(5px); }
+      15% { transform: translateX(-10px); }
+      30% { transform: translateX(10px); }
+      45% { transform: translateX(-10px); }
+      60% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+      90% { transform: translateX(10px); }
     }
 
-    .shake {
-      animation: shake 0.5s;
-    }
-
-    /* Glitch effect */
-    @keyframes glitch {
-      0% {
-        clip: rect(42px, 9999px, 44px, 0);
-        transform: skew(0.5deg);
-      }
-      10% {
-        clip: rect(12px, 9999px, 14px, 0);
-        transform: skew(-0.5deg);
-      }
-      20% {
-        clip: rect(85px, 9999px, 87px, 0);
-        transform: skew(0.5deg);
-      }
-      30% {
-        clip: rect(50px, 9999px, 52px, 0);
-        transform: skew(-0.5deg);
-      }
-      40% {
-        clip: rect(75px, 9999px, 77px, 0);
-        transform: skew(0.5deg);
-      }
-      50% {
-        clip: rect(20px, 9999px, 22px, 0);
-        transform: skew(-0.5deg);
-      }
-      60% {
-        clip: rect(65px, 9999px, 67px, 0);
-        transform: skew(0.5deg);
-      }
-      70% {
-        clip: rect(35px, 9999px, 37px, 0);
-        transform: skew(-0.5deg);
-      }
-      80% {
-        clip: rect(90px, 9999px, 92px, 0);
-        transform: skew(0.5deg);
-      }
-      90% {
-        clip: rect(55px, 9999px, 57px, 0);
-        transform: skew(-0.5deg);
-      }
-      100% {
-        clip: rect(70px, 9999px, 72px, 0);
-        transform: skew(0.5deg);
-      }
-    }
-
-    .glitch {
-      animation: glitch 0.5s;
+    .wiggle {
+      animation: wiggle 0.8s;
     }
 
     /* Blinking cursor animation */
@@ -156,6 +121,21 @@
 </head>
 <body>
   <div class="container">
+    <!-- ASCII Art Title -->
+    <pre id="title">
+
+ooo        ooooo                       o8o                  .ooooo.        oooooooooo.            oooo  oooo  
+`88.       .888'                       `"'                 d88'   `8.      `888'   `Y8b           `888  `888  
+ 888b     d'888   .oooo.    .oooooooo oooo   .ooooo.       Y88..  .8'       888     888  .oooo.    888   888  
+ 8 Y88. .P  888  `P  )88b  888' `88b  `888  d88' `"Y8       `88888b.        888oooo888' `P  )88b   888   888  
+ 8  `888'   888   .oP"888  888   888   888  888            .8'  ``88b       888    `88b  .oP"888   888   888  
+ 8    Y     888  d8(  888  `88bod8P'   888  888   .o8      `8.   .88P       888    .88P d8(  888   888   888  
+o8o        o888o `Y888""8o `8oooooo.  o888o `Y8bod8P'       `boood8'       o888bood8P'  `Y888""8o o888o o888o 
+                           d"     YD                                                                          
+                           "Y88888P'                                                                          
+                                                                                                              
+    </pre>
+    <!-- Magic 8 Ball ASCII Art -->
     <pre id="magic8ball"></pre>
     <button onclick="tellFortune()">Tell me my fortune</button>
     <div id="fortune"></div>
@@ -202,60 +182,59 @@
 
     function tellFortune() {
       const fortunes = [
-       // Positive Responses (20)
-  "Absolutely! What could possibly go wrong?",
-  "Yes—because you're the hero of this story!",
-  "The universe says 'Go for it!' Or maybe that was just an echo.",
-  "Without a doubt—unless you doubt it.",
-  "For sure! Your brilliance knows no bounds!",
-  "Yes, and everyone will be amazed—probably.",
-  "Affirmative! Even the stars are impressed.",
-  "Absolutely yes! The future is yours to conquer!",
-  "Yes, and it's about time you realized it!",
-  "The signs point to yes—unless they're pointing somewhere else.",
-  "Definitely! The world awaits your next move!",
-  "Yes! Fortune favors the bold—and the slightly reckless!",
-  "Go ahead! You have my unsolicited approval!",
-  "Yes, and may the odds be ever in your favor!",
-  "Absolutely! It's written in invisible ink!",
-  "Yes—like a thousand times yes!",
-  "Yes, but first, do a happy dance.",
-  "Proceed! Destiny has a surprise waiting for you!",
-  "Yes, and it's going to be legendary!",
-  "Undoubtedly yes! What are you waiting for?",
-  "Yes, because miracles happen every day!",
+        // Positive Responses (20)
+        "Absolutely! What could possibly go wrong?",
+        "Yes—because you're the hero of this story!",
+        "The universe says 'Go for it!' Or maybe that was just an echo.",
+        "Without a doubt—unless you doubt it.",
+        "For sure! Your brilliance knows no bounds!",
+        "Yes, and everyone will be amazed—probably.",
+        "Affirmative! Even the stars are impressed.",
+        "Absolutely yes! The future is yours to conquer!",
+        "Yes, and it's about time you realized it!",
+        "The signs point to yes—unless they're pointing somewhere else.",
+        "Definitely! The world awaits your next move!",
+        "Yes! Fortune favors the bold—and the slightly reckless!",
+        "Go ahead! You have my unsolicited approval!",
+        "Yes, and may the odds be ever in your favor!",
+        "Absolutely! It's written in invisible ink!",
+        "Yes—like a thousand times yes!",
+        "Yes, but first, do a happy dance.",
+        "Proceed! Destiny has a surprise waiting for you!",
+        "Yes, and it's going to be legendary!",
+        "Undoubtedly yes! What are you waiting for?",
+        "Yes, because miracles happen every day!",
 
-  // Negative Responses (15)
-  "No way! But hey, prove me wrong.",
-  "Absolutely not. But you do you.",
-  "I wouldn't count on it, but what do I know?",
-  "Nope. Not a chance. Move along.",
-  "My sources say no, but they also believe in aliens.",
-  "Negative. But thanks for asking.",
-  "No, and asking again won't change that.",
-  "Absolutely not. It's a trap!",
-  "No, unless you're aiming for an interesting story.",
-  "Denied. The universe just facepalmed.",
-  "Nope. Perhaps consider a different approach.",
-  "The answer is a resounding no.",
-  "No. In fact, running in the opposite direction might help.",
-  "Not happening. Maybe in another lifetime.",
-  "No, and that's the final answer.",
+        // Negative Responses (15)
+        "No way! But hey, prove me wrong.",
+        "Absolutely not. But you do you.",
+        "I wouldn't count on it, but what do I know?",
+        "Nope. Not a chance. Move along.",
+        "My sources say no, but they also believe in aliens.",
+        "Negative. But thanks for asking.",
+        "No, and asking again won't change that.",
+        "Absolutely not. It's a trap!",
+        "No, unless you're aiming for an interesting story.",
+        "Denied. The universe just facepalmed.",
+        "Nope. Perhaps consider a different approach.",
+        "The answer is a resounding no.",
+        "No. In fact, running in the opposite direction might help.",
+        "Not happening. Maybe in another lifetime.",
+        "No, and that's the final answer.",
 
-  // Vague Responses (10)
-  "Reply hazy, try again after coffee.",
-  "Ask again later. I'm on a break.",
-  "Cannot predict now. My crystal ball is buffering.",
-  "Concentrate and ask again—if you must.",
-  "Better not tell you now. Spoilers!",
-  "Indeterminate outcome. Flip a coin.",
-  "The mists of uncertainty obscure your answer.",
-  "It's unclear—try shaking me harder.",
-  "Signs point to maybe. Or maybe not.",
-  "Your guess is as good as mine. Probably better.",
-  "Error 404: Fortune not found. Try again.",
-        
-    ];
+        // Vague Responses (10)
+        "Reply hazy, try again after coffee.",
+        "Ask again later. I'm on a break.",
+        "Cannot predict now. My crystal ball is buffering.",
+        "Concentrate and ask again—if you must.",
+        "Better not tell you now. Spoilers!",
+        "Indeterminate outcome. Flip a coin.",
+        "The mists of uncertainty obscure your answer.",
+        "It's unclear—try shaking me harder.",
+        "Signs point to maybe. Or maybe not.",
+        "Your guess is as good as mine. Probably better.",
+        "Error 404: Fortune not found. Try again.",
+      ];
 
       const fortuneElement = document.getElementById('fortune');
       fortuneElement.style.opacity = '0';
@@ -266,31 +245,24 @@
 
       const magic8ball = document.getElementById('magic8ball');
 
-      // Add shake animation to the ASCII art
-      magic8ball.classList.add('shake');
+      // Remove any previous wiggle classes
+      magic8ball.classList.remove('wiggle');
 
-      // Remove the shake class after animation completes
+      // Add wiggle animation to the ASCII art
+      magic8ball.classList.add('wiggle');
+
+      // Remove the wiggle class after animation completes
       setTimeout(() => {
-        magic8ball.classList.remove('shake');
-      }, 500);
+        magic8ball.classList.remove('wiggle');
 
-      // Add glitch effect
-      magic8ball.classList.add('glitch');
-
-      // Remove glitch effect after some time
-      setTimeout(() => {
-        magic8ball.classList.remove('glitch');
-      }, 500);
-
-      // Show fortune after shake and glitch effects
-      setTimeout(() => {
+        // Show fortune after wiggle animation
         const randomIndex = Math.floor(Math.random() * fortunes.length);
         const fortuneText = fortunes[randomIndex];
         fortuneElement.innerText = fortuneText;
         fortuneElement.style.opacity = '1';
         // Re-enable the button after showing the fortune
         button.disabled = false;
-      }, 500); // Delay matching the duration of shake and glitch animations
+      }, 800); // Delay matches the wiggle animation duration
     }
 
     // Start typing the ASCII art when the page loads
